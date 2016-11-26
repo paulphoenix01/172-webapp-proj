@@ -1,0 +1,108 @@
+{>"layout" /}
+
+{<body}
+	<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#formModal">
+		Add Course
+	</button>
+
+	<br />
+
+	{#courses}
+		<div class="well">
+			<h4>{name} 
+			<button class="btn btn-default pull-right" data-toggle="collapse" href="#course_{id}" aria-expanded="false" aria-controls="course_{id}">
+			<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+			</button></h4>
+
+			<div class="collapse" id="course_{id}">
+			 	<br />
+			 	<br />
+			 	<p><strong>Description: </strong>{description}</p>
+			 	<p><strong>Prerequisites: </strong>{prereq}</p>
+			 	<br />
+			 	<hr />
+
+			 	<button class="btn btn-default edit-course" 
+			 	data-toggle="modal" 
+			 	data-target="#editFormModal"
+			 	data-id="{id}"
+			 	data-name="{name}"
+			 	data-description="{description}"
+			 	data-prereq="{prereq}"
+			 	>
+			 		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+			 	</button> 
+
+			 	<button class="btn btn-danger delete-course" data-id="{id}">
+			 		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+			 	</button>
+			</div>
+		</div>
+	{/courses}
+
+	<!-- Add Form Modal -->
+	<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	    	<form method="post" action="/add">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Add Course</h4>
+			      </div>
+			      <div class="modal-body">
+			        	<div class="form-group">
+				        	<label>Course Name</label>
+				        	<input type="text" class="form-control" name="name" />
+				        </div>
+				        <div class="form-group">
+				        	<label>Description</label>
+				        	<textarea class="form-control" name="description"></textarea>
+				        </div>
+				        <div class="form-group">
+				        	<label>Prerequisites</label>
+				        	<textarea class="form-control" name="prereq"></textarea>
+				        </div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <input type="submit" class="btn btn-primary" value="Save" />
+			      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
+
+	<!-- Edit Form Modal -->
+	<div class="modal fade" id="editFormModal" tabindex="-1" role="dialog" aria-labelledby="editFormModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	    	<form method="post" action="/edit">
+	    		<input type="hidden" id="edit-form-id" name="id" />
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Add Course</h4>
+			      </div>
+			      <div class="modal-body">
+			        	<div class="form-group">
+				        	<label>Course Name</label>
+				        	<input type="text" class="form-control" name="name" id="edit-form-name" />
+				        </div>
+				        <div class="form-group">
+				        	<label>Description</label>
+				        	<textarea class="form-control" name="description" id="edit-form-description"></textarea>
+				        </div>
+				        <div class="form-group">
+				        	<label>Prerequisites</label>
+				        	<textarea class="form-control" name="prereq" id="edit-form-prereq"></textarea>
+				        </div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <input type="submit" class="btn btn-primary" value="Save" />
+			      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+{/body}
