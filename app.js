@@ -3,12 +3,19 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	cons = require('consolidate'),
 	dust = require('dustjs-helpers'),
-	pg = require('pg'),
+	dbclient = require('mongodb').MongoClient,
+	object_id = require('mongodb').ObjectID,
+	assert = require('assert'),
 	app = express();
-
-// DB Connect String
-var connect = "postgres://user:123456@localhost/coursedb";
-
+	
+// DB Connect 
+var url = 'mongodb://localhost:27017/test';
+dbclient.connect(url,function(err, db){
+	assert.equal(null,err);
+	// Connection successful
+	console.log("Connected to DB server");
+	db.close();
+})
 // Assign Dust Engine To .dust Files
 app.engine('dust', cons.dust);
 
@@ -23,65 +30,85 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// /GET. Query all file in the table/collection 'courses' -> render and response 
 app.get('/', function(req, res){
-	// PG Connect
-	pg.connect(connect, function(err, client, done) {
-	  if(err) {
-	    return console.error('error fetching client from pool', err);
-	  }
-	  client.query('SELECT * FROM courses', function(err, result) {
-	    if(err) {
-	      return console.error('error running query', err);
-	    }
-	    res.render('index', {courses: result.rows});
-	    done();
-	  });
-	});
+	dbclient.connect(url, function(err, db){
+		assert.equal(null,err);
+		db.collection('courses').find().toArray(function(err, list){
+			console.log(">> Retrieve Course List \n");
+			// Query result is an array of objects
+			console.log(list);
+			res.render('index', {courses: list});	
+		});
+		db.close();
+		
+	})
+
 });
 
+// /POST. This will add course with "Name" - "Desscription" - "Prerequisites"
 app.post('/add',function(req, res){
-	// PG Connect
-	pg.connect(connect, function(err, client, done) {
-	  if(err) {
-	    return console.error('error fetching client from pool', err);
-	  }
-	  client.query("INSERT INTO courses(name, description, prereq) VALUES($1, $2, $3)",
-	  	[req.body.name, req.body.description, req.body.prereq]);
-	
-		done();
+	dbclient.connect(url,function(err,db){
+		assert.equal(null,err);
+
+		db.collection('courses').insertOne({
+			"name": req.body.name,
+			"description": req.body.description,
+			"prereq": req.body.prereq
+		})
+		console.log(">>> Inserted An Entry");
+
+		db.close();
+		// Redirect = Refresh to main page
 		res.redirect('/');
-	});
+	})
+
 });
 
 app.delete('/delete/:id', function(req, res){
-	// PG Connect
-	pg.connect(connect, function(err, client, done) {
-	  if(err) {
-	    return console.error('error fetching client from pool', err);
-	  }
-	  client.query("DELETE FROM courses WHERE id = $1",
-	  	[req.params.id]);
+	// Same as below
+	// Connect database -> get collection (the table), then execute mongodb DELETE with the id = name
 	
-		done();
-		res.sendStatus(200);
-	});
+	dbclient.connect(url,function(err,db){
+		assert.equal(null, err);
+
+
+		console.log(">>> Post_ID: " + req.params.id);
+		db.collection('courses').deleteOne({_id: new object_id(req.params.id)});
+		console.log(">> Deleted Something");
+		db.close();
+		res.redirect('/');
+	})
+		
+
 });
 
+// /POST. Update an entry in the table. 
+// Will not allow to edit course name. Will need to delete and create a new one for changing Course name.
 app.post('/edit', function(req, res){
-	// PG Connect
-	pg.connect(connect, function(err, client, done) {
-	  if(err) {
-	    return console.error('error fetching client from pool', err);
-	  }
-	  client.query("UPDATE courses SET name=$1, description=$2, prereq=$3 WHERE id = $4",
-	  	[req.body.name, req.body.description, req.body.prereq,req.body.id]);
-	
-		done();
-		res.redirect('/');
+	dbclient.connect(url,function(err,db){
+		assert.equal(null,err);
+		db.collection('courses').update(
+			// "Name" as ID for UPDATE query
+			{name: req.body.name},
+			{
+				name: req.body.name,
+				description: req.body.description, 
+				prereq: req.body.prereq
+			}, function(err, results){
+				// Ignore error. 
+				// Done Updating
+				console.log("Updated Something");
+				db.close();
+				// Refresh the main page
+				res.redirect('/');
+			}
+			
+		);
 	});
 });
 
 // Server
-app.listen(3000, function(){
-	console.log('Server Started On Port 3000');
+app.listen(3001, function(){
+	console.log('Server Started On Port 3001');
 });
