@@ -77,7 +77,7 @@ app.delete('/delete/:id', function(req, res){
 		db.collection('courses').deleteOne({_id: new object_id(req.params.id)});
 		console.log(">> Deleted Something");
 		db.close();
-		res.redirect('/');
+		res.render('./', {});
 	})
 		
 
