@@ -9,7 +9,7 @@ var express = require('express'),
 	app = express();
 	
 // DB Connect 
-var url = 'mongodb://localhost:27017/test';
+var url = 'mongodb://<dbuser>:<dbpassword>@ds111718.mlab.com:11718/emily';
 dbclient.connect(url,function(err, db){
 	assert.equal(null,err);
 	// Connection successful
