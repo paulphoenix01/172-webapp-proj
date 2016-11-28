@@ -9,7 +9,7 @@ var express = require('express'),
 	app = express();
 	
 // DB Connect 
-var url = 'mongodb://<dbuser>:<dbpassword>@ds111718.mlab.com:11718/emily';
+var url = 'mongodb://emily:123456@ds111718.mlab.com:11718/emily';
 dbclient.connect(url,function(err, db){
 	assert.equal(null,err);
 	// Connection successful
@@ -109,6 +109,7 @@ app.post('/edit', function(req, res){
 });
 
 // Server
-app.listen(3001, function(){
-	console.log('Server Started On Port 3001');
+var port = process.env.PORT || 3000;
+app.listen(port, function(){
+	console.log('Server Started On port '+ port);
 });
