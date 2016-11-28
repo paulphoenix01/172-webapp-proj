@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$('.delete-course').on('click', function(){
-		var id = $(this).data('id');
-		var url = '/delete/'+id;
+		var _id = $(this).data('id');
+		var url = '/delete/'+ _id;
 		if(confirm('Delete Course?')){
 			$.ajax({
 				url: url,
@@ -21,6 +21,6 @@ $(document).ready(function(){
 		$('#edit-form-name').val($(this).data('name'));
 		$('#edit-form-description').val($(this).data('description'));
 		$('#edit-form-prereq').val($(this).data('prereq'));
-		$('#edit-form-id').val($(this).data('id'));
+		$('#edit-form-id').val($(this).data('_id'));
 	});
 });
