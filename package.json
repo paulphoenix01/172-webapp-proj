@@ -4,7 +4,7 @@
   "description": "SJSU SE CourseList",
   "main": "app.js"
   },
-  "author": "Emily Xie and Linh Phan",
+{ "author": "Emily Xie and Linh Phan",
   "dependencies": {
     "body-parser": "*",
     "consolidate": "*",
