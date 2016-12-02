@@ -2,12 +2,9 @@
   "name": "courselist",
   "version": "1.0.0",
   "description": "SJSU SE CourseList",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "app.js"
   },
   "author": "Emily Xie and Linh Phan",
-  "license": "ISC",
   "dependencies": {
     "body-parser": "*",
     "consolidate": "*",
@@ -15,7 +12,6 @@
     "dustjs-helpers": "*",
     "dustjs-linkedin": "*",
     "express": "*",
-    "mongodb": "^2.2.11",
-    "pg": "*"
+    "mongodb": "^2.2.11"
   }
 }
