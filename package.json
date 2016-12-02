@@ -2,9 +2,12 @@
   "name": "courselist",
   "version": "1.0.0",
   "description": "SJSU SE CourseList",
-  "main": "app.js"
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-{ "author": "Emily Xie and Linh Phan",
+  "author": "Emily Xie and Linh Phan",
+  "license": "ISC",
   "dependencies": {
     "body-parser": "*",
     "consolidate": "*",
