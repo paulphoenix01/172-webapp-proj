@@ -12,13 +12,13 @@
   "author": "Emily Xie and Linh Phan",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "~1.15.2",
-    "consolidate": "~0.14.5",
-    "dust": "~0.3.0",
-    "dustjs-helpers": "~1.7.3",
-    "dustjs-linkedin": "~2.7.4",
-    "express": "~4.14.0",
-    "mongodb": "~2.2.12"
+    "body-parser": "*",
+    "consolidate": "*",
+    "dust": "*",
+    "dustjs-helpers": "*",
+    "dustjs-linkedin": "*",
+    "express": "*",
+    "mongodb": "*"
   },
   "engine": {
 	"node": "4.2.6",
