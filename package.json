@@ -4,7 +4,7 @@
   "description": "SJSU SE CourseList",
   "main": "app.js",
   "scripts": {
-   	"start": "node app.js" 
+   	"start": "node app" 
   },
    "keywords": [
        "heroku"
