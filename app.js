@@ -26,7 +26,7 @@ app.set('view engine', 'dust');
 app.set('views', __dirname + '/views');
 
 // Set Public folder = "Client" folder, with css/js/fonts for the webpage
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 // Body Parser Middleware
 app.use(bodyParser.json());
