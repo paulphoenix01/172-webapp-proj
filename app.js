@@ -8,7 +8,11 @@ var express = require('express'),
 	assert = require('assert'),
 	app = express();
 	
+<<<<<<< HEAD
 // DB Connect 
+=======
+// DB Connect Test
+>>>>>>> origin/master
 var url = 'mongodb://emily:123456@ds111718.mlab.com:11718/emily';
 dbclient.connect(url,function(err, db){
 	assert.equal(null,err);
@@ -19,11 +23,11 @@ dbclient.connect(url,function(err, db){
 // Assign Dust Engine To .dust Files
 app.engine('dust', cons.dust);
 
-// Set Default Ext .dust
+// Use *.dust file instead of html
 app.set('view engine', 'dust');
 app.set('views', __dirname + '/views');
 
-// Set Public Folder
+// Set Public folder = "Client" folder, with css/js/fonts for the webpage
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Body Parser Middleware
@@ -40,8 +44,7 @@ app.get('/', function(req, res){
 			console.log(list);
 			res.render('index', {courses: list});	
 		});
-		db.close();
-		
+		db.close();	
 	})
 
 });
@@ -66,17 +69,16 @@ app.post('/add',function(req, res){
 });
 
 app.delete('/delete/:id', function(req, res){
-	// Same as below
-	// Connect database -> get collection (the table), then execute mongodb DELETE with the id = name
+	// Connect database -> get collection (the table), then execute mongodb DELETE with the id = post_ID
 	
 	dbclient.connect(url,function(err,db){
 		assert.equal(null, err);
-
 
 		console.log(">>> Post_ID: " + req.params.id);
 		db.collection('courses').deleteOne({_id: new object_id(req.params.id)});
 		console.log(">> Deleted Something");
 		db.close();
+		//Refresh main page
 		res.render('./', {});
 	})
 		
@@ -109,7 +111,15 @@ app.post('/edit', function(req, res){
 });
 
 // Server
+<<<<<<< HEAD
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
         console.log('Server Started On port '+ port);
 });
+=======
+// Still not fixed the heroku problem, still port problem here ??
+var port = process.env.PORT || 3000;
+app.listen(port, function(){
+	console.log('Server Started On port '+ port);
+});
+>>>>>>> origin/master
