@@ -8,11 +8,9 @@ var express = require('express'),
 	assert = require('assert'),
 	app = express();
 	
-<<<<<<< HEAD
-// DB Connect 
-=======
-// DB Connect Test
->>>>>>> origin/master
+
+
+//DB Connection Test
 var url = 'mongodb://emily:123456@ds111718.mlab.com:11718/emily';
 dbclient.connect(url,function(err, db){
 	assert.equal(null,err);
@@ -111,15 +109,7 @@ app.post('/edit', function(req, res){
 });
 
 // Server
-<<<<<<< HEAD
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
         console.log('Server Started On port '+ port);
 });
-=======
-// Still not fixed the heroku problem, still port problem here ??
-var port = process.env.PORT || 3000;
-app.listen(port, function(){
-	console.log('Server Started On port '+ port);
-});
->>>>>>> origin/master
