@@ -11,7 +11,7 @@ var express = require('express'),
 
 
 //DB Connection Test
-var url = 'mongodb://<dbuser>:<dbpassword>@ds119598.mlab.com:19598/heroku_wcm72s1l';
+var url = 'mongodb://emily:kittykat@ds119598.mlab.com:19598/heroku_wcm72s1l';
 dbclient.connect(url,function(err, db){
 	assert.equal(null,err);
 	// Connection successful
